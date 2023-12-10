@@ -1,4 +1,18 @@
 export default (editor) => {
+
+  // editor.Panels.addPanel({
+  //   id: "basic-actions",
+  //   visible: true,
+  //   buttons: [
+  //     {
+  //       id: "alert-button",
+  //       className: "fa fa-check",
+  //       command(editor) {
+  //         alert("Hello World");
+  //       },
+  //     },
+  //   ],
+  // });
   editor.Panels.addPanel({
     id: "devices",
     buttons: [

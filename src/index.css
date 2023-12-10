@@ -16,3 +16,7 @@ body {
 #editor{
   min-height: 100vh;
 }
+
+.as-md-text{
+  color: salmon !important
+}

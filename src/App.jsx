@@ -5,28 +5,14 @@ import LocalPlugins from "./plugins";
 import loadComponents from "./builder/components";
 import loadBlocks from "./builder/blocks";
 import loadPanels from "./builder/panels";
+import { STYLE_MANAGER_SECTORS } from "./builder/constant";
 
 const App = () => {
   const localPlugins = LocalPlugins();
+  const sectors = STYLE_MANAGER_SECTORS;
+  const projectID = 1;
+  const projectEndpoint = `http://localhost:3000/projects/${projectID}`;
   const [editor, setEditor] = useState(null);
-
-  const myNewComponentTypes = (editor) => {
-    editor.DomComponents.addType("my-div-type", {
-      isComponent: (el) => el.tagName === "INPUT",
-      model: {
-        defaults: {
-          tagName: "div",
-          components: [
-            {
-              tagName: "h1",
-              components: "Header test",
-            },
-            "<p>Paragraph test</p>",
-          ],
-        },
-      },
-    });
-  };
 
   useEffect(() => {
     const e = grapesjs.init({
@@ -41,8 +27,9 @@ const App = () => {
         ],
       },
       showDevices: false, // set flase to customize as icon instead dropdown
-
-      // plugins: [myNewComponentTypes],
+      styleManager: {
+        sectors: sectors,
+      },
     });
 
     setEditor(e);
@@ -57,9 +44,27 @@ const App = () => {
       //     media: plugin.media,
       //   });
       // });
+
       loadComponents(editor);
       loadBlocks(editor);
-      loadPanels(editor)
+      loadPanels(editor);
+
+      // add new button to desire panel
+      const panelManager = editor.Panels;
+      panelManager.addButton("options", {
+        id: "export-as-json",
+        className: "fa fa-download",
+        command(editor) {
+          editor.Modal.setTitle("Components JSON")
+            .setContent(
+              `<textarea style="width:100%; height: 250px;">${JSON.stringify(editor.getComponents())}</textarea>`
+            )
+            .open();
+        },
+        active: false,
+      });
+
+      console.log(panelManager.getPanels().models);
     }
   }, [editor]);
 
