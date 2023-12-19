@@ -3,6 +3,11 @@ export const COMPONENT_TYPES = {
   flexTest: "flex-test",
 };
 
+export const BLOCK_CATEGORIES = {
+  basicBlocks: {label: 'Basic Blocks', open: true},
+  advanceBlocks: {label: 'Advance Blocks', open: false},
+}
+
 export const STYLE_MANAGER_SECTORS = [
   {
     name: "General",
