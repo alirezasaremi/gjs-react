@@ -6,6 +6,7 @@ import loadComponents from "./builder/components";
 import loadBlocks from "./builder/blocks";
 import loadPanels from "./builder/panels";
 import { STYLE_MANAGER_SECTORS } from "./builder/constant";
+import PageModal from "./builder/modal/PageModal";
 
 const App = () => {
   const localPlugins = LocalPlugins();
@@ -14,6 +15,10 @@ const App = () => {
   const projectEndpoint = `http://localhost:3000/projects/${projectID}`;
   const [editor, setEditor] = useState(null);
 
+
+  const selectPage = (page) =>{
+    console.log(page.id)
+  }
   useEffect(() => {
     const e = grapesjs.init({
       container: "#editor",
@@ -29,6 +34,20 @@ const App = () => {
       showDevices: false, // set flase to customize as icon instead dropdown
       styleManager: {
         sectors: sectors,
+      },
+      pageManager: {
+        pages: [
+          {
+            id: "my-first-page",
+            styles: ".my-page1-el { color: red }",
+            component: '<div class="my-page1-el">Page 1</div>',
+          },
+          {
+            id: "my-second-page",
+            styles: ".my-page2-el { color: blue }",
+            component: '<div class="my-page2-el">Page 2</div>',
+          },
+        ],
       },
     });
 
@@ -57,14 +76,33 @@ const App = () => {
         command(editor) {
           editor.Modal.setTitle("Components JSON")
             .setContent(
-              `<textarea style="width:100%; height: 250px;">${JSON.stringify(editor.getComponents())}</textarea>`
+              `<textarea style="width:100%; height: 250px;">${JSON.stringify(
+                editor.getComponents()
+              )}</textarea>`
             )
             .open();
         },
         active: false,
       });
 
-      console.log(panelManager.getPanels().models);
+      const pageManager = editor.Pages;
+      console.log("pages", pageManager.getAll());
+      panelManager.addButton("options", {
+        id: "modal-pages",
+        className: "fa fa-file",
+        command(editor) {
+          editor.Modal.setTitle("Pages").setContent(<PageModal />).open();
+            // .setContent(
+            //   `<div><ul>${pageManager.getAll().map((page) => {
+            //     return `<li onClick=${console.log(page.id)}>${page.id}</li>`;
+            //   })}</ul></div>`
+            // )
+            // .open();
+        },
+        active: false,
+      });
+
+      // console.log(panelManager.getPanels().models);
     }
   }, [editor]);
 
