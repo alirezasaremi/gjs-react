@@ -1,4 +1,4 @@
-html{
+html {
   overflow: scroll;
   overflow-x: hidden;
   -ms-overflow-style: none;
@@ -13,10 +13,65 @@ body {
   display: none;
 }
 
-#editor{
+#editor {
   min-height: 100vh;
 }
 
-.as-md-text{
-  color: salmon !important
+.page-dialog-content {
+  min-height: 240px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.page-card, .add-page-card{
+  width: 128px;
+  height: 128px;
+  background-color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 12px;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.add-page-card{
+  cursor: pointer;
+}
+
+.add-page-card::after{
+  content: "+";
+  font-size: 72px;
+}
+
+.add-page-card:hover{
+  color: rgb(26, 194, 26);
+}
+
+.active-page{
+  box-shadow: rgba(0, 255, 0, 0.35) 1.95px 1.95px 2.6px;
+}
+
+.page-action-wrapper{
+  display: flex;
+  flex-direction: row;
+  gap: 8px
+}
+
+.page-card-action-btn{
+  background-color: #222;
+  width: 28px;
+  height: 28px;
+  border-radius: 16px;
+  border: solid 1px #222;
+  cursor: pointer;
+  color: #fff;
+  font-size: 13px;
+  transition: all .3s;
+}
+
+.page-card-action-btn:hover{
+  border: solid 1px #ccc;
 }
