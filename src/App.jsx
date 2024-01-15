@@ -15,7 +15,6 @@ const App = () => {
   const projectEndpoint = `http://localhost:3000/projects/${projectID}`;
   const [editor, setEditor] = useState(null);
 
-  
 
   useEffect(() => {
     const e = grapesjs.init({
